@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+	<title>Search Results</title>
+
+</head>
+<body>
+
+	<div class="container">
+		<ul class="list-group" id="tweets">
+
+			<!-- this create a variable using jinja. This variable will be used as a CSS class -->
+			{% set css_class = 'list-group-item-info' %}
+
+			<!-- we iterate for each element in content -->
+			{% for element in content %}
+
+				<!-- we change the class depending on the sentiment analysis label -->
+				{% if element['label'] == 'neg' %}
+					{% set css_class = 'list-group-item-danger' %}
+
+				{% elif element['label'] == 'pos' %}
+					{% set css_class = 'list-group-item-success' %}
+
+				{% endif %}
+
+					<!-- for each li, we set the li class depending on the sentiment analysis label -->
+					<li class="list-group-item {{ css_class }}">{{ element['tweet'] }}</li>
+
+			{% endfor %}
+
+		</ul>
+	</div>
+
+</body>
+
+</html>
